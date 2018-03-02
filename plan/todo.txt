@@ -1,0 +1,3 @@
+Adapt code from https://rosettacode.org/wiki/Reduced_row_echelon_form#Python
+
+see also http://www.logical.ai/chemistry/html/chem-nullspace.html
