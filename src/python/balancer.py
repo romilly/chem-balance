@@ -5,7 +5,7 @@ from aw import edict
 eq = '[A-Z][a-z]?[\d]*'
 expr_form = re.compile('(\((?:%s)*\)[\d]*|%s)' % (eq,eq))
 compound_form = re.compile('([A-Z][a-z]?)([\d]*)')
-bracketed_form = re.compile('\(((?:[A-Z]|[a-z]|[\d])*)\)([\d]*)')
+bracketed_form = re.compile('\(((?:%s)*)\)([\d]*)' % eq)
 
 def count(string):
     return int(string) if string else 1
