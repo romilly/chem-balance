@@ -2,7 +2,8 @@ import re
 from collections import defaultdict
 from aw import edict
 
-expr_form = re.compile('(\((?:[A-Z][a-z]?[\d]*)*\)[\d]*|[A-Z][a-z]?[\d]*)')
+eq = '[A-Z][a-z]?[\d]*'
+expr_form = re.compile('(\((?:%s)*\)[\d]*|%s)' % (eq,eq))
 compound_form = re.compile('([A-Z][a-z]?)([\d]*)')
 bracketed_form = re.compile('\(((?:[A-Z]|[a-z]|[\d])*)\)([\d]*)')
 
