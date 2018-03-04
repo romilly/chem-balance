@@ -10,6 +10,7 @@ Changes to the `math` and `fractions` packages
 mean that it may not work with earlier versions.
 
 The tests use PyHamcrest which is the only external requirement.
+It is not needed if you just want to *use* the balancer.py script
 
 I will document the code but these examples may be enough to get you going:
 
