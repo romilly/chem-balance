@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/chem-balance.iml" filepath="$PROJECT_DIR$/.idea/chem-balance.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../linear-algebra/.idea/linear-algebra.iml" filepath="$PROJECT_DIR$/../linear-algebra/.idea/linear-algebra.iml" />
     </modules>
   </component>
 </project>

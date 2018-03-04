@@ -18,7 +18,7 @@ class CompoundTest(TestCase):
 
 class BalancerTest(TestCase):
     def test_balances_feasible_equation(self):
-        # assert_that(balance('Fe+Cl2=FeCl3'), equal_to('2Fe+3Cl2=2FeCl3'))
+        assert_that(balance('Fe+Cl2=FeCl3'), equal_to('2Fe+3Cl2=2FeCl3'))
         assert_that(balance('C2H4+O2=CO2+H2O'), equal_to('C2H4+3O2=2CO2+2H2O'))
 
 

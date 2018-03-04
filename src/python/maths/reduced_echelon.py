@@ -20,7 +20,7 @@ def reduced_row_echelon_form(m):
                     return reduced_matrix
         reduced_matrix[i], reduced_matrix[r] = reduced_matrix[r], reduced_matrix[i]
         lv = reduced_matrix[r][lead]
-        reduced_matrix[r] = [mrx / float(lv) for mrx in reduced_matrix[r]]
+        reduced_matrix[r] = [mrx / lv for mrx in reduced_matrix[r]]
         for i in range(rowCount):
             if i != r:
                 lv = reduced_matrix[i][lead]

@@ -1,5 +1,9 @@
 import re
 from collections import defaultdict
+from fractions import Fraction
+from math import gcd
+from functools import reduce
+
 from chemistry.aw import edict
 from maths.reduced_echelon import reduced_row_echelon_form, catenate, identity
 
@@ -62,6 +66,14 @@ def all_zero(row):
             return False
     return True
 
+# lcm from https://gist.github.com/endolith/114336
+
+
+def lcm(*numbers):
+    """Return lowest common multiple."""
+    def _lcm(a, b):
+        return (a * b) // gcd(a, b)
+    return reduce(_lcm, *numbers)
 
 def balance(equation):
     compounds = [Compound(formula) for formula in re.split('\+|=', equation)]
@@ -69,19 +81,21 @@ def balance(equation):
     for compound in compounds:
         for element in compound.elements():
             elements.add(element)
-    m = [[compound[element] for compound in compounds] for element in elements]
+    m = [[Fraction(compound[element]) for compound in compounds] for element in elements]
     mt = list((zip(*m)))
     me = catenate(mt, identity(len(mt)))
     ref = reduced_row_echelon_form(me)
     zrows = [row for row in ref if all_zero(row[:len(m)])]
     if len(zrows) != 1:
         return
-    factors = list(map(lambda x: int(abs(x)), zrows[0]))[len(m):]
+    factors = list(map(lambda x: abs(x), zrows[0]))[len(m):]
+    denominator_lcm = lcm([factor.denominator for factor in factors])
+    integer_factors = [factor * denominator_lcm for factor in factors]
     reagents, products = equation.split('=')
     reagents = reagents.split('+')
     products = products.split('+')
-    br = '+'.join([(str(factor) if factor > 1 else '')+reagent for (factor, reagent) in zip(factors[:len(reagents)], reagents)])
-    pr = '+'.join([(str(factor) if factor > 1 else '')+product for (factor, product) in zip(factors[-len(products):],products)])
+    br = '+'.join([(str(factor) if factor > 1 else '')+reagent for (factor, reagent) in zip(integer_factors[:len(reagents)], reagents)])
+    pr = '+'.join([(str(factor) if factor > 1 else '')+product for (factor, product) in zip(integer_factors[-len(products):],products)])
     return br+'='+pr
 
 
