@@ -1,6 +1,6 @@
 # chem-balance
 
-An experimental collection of Python Scripts for Chemistry.
+A collection of Python Scripts for Chemistry Students.
 
 The code parses molecular formulae, calculates molecular weights
 and can balance chemical equations.
