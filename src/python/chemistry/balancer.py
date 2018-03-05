@@ -1,19 +1,37 @@
+"""
+Determine the composition of a compound from its molecular formula, calculate its molecular weight and balance chemical equations.
+
+This module implements:
+Compound - a class that is created from a formula and knows its constituent elements, their quantities and its molecular weight.
+amu - a function that returns the atomic mass of a given element
+balance - a function that returns the balanced version of a chemical equation
+"""
 import re
 from collections import defaultdict
 from fractions import Fraction
 from math import gcd
 from functools import reduce
 
+"""
+regular expressions used in parsing chemical formulae and equations
+"""
 eq = '[A-Z][a-z]?[\d]*'
 expr_form = re.compile('(\((?:%s)*\)[\d]*|%s)' % (eq,eq))
 bracketed_form = re.compile('\(((?:%s)*)\)([\d]*)' % eq)
 compound_form = re.compile('([A-Z][a-z]?)([\d]*)')
 
+"""
+Compound - a class that is created from a formula and knows its constituent elements, their quantities and its molecular weight.
+
+The formula should consist of a series of elements and quantities, as in H2SO4, CH4, Ca2CO3.
+The formula can also include bracketed items: CH3(CH2)50CH3
+"""
+
 
 class Compound():
     def __init__(self, formula):
         self._formula = formula
-        self._elements = self.atoms_in(formula)
+        self._elements = self._atoms_in(formula)
 
     def formula(self):
         return self._formula
@@ -27,7 +45,7 @@ class Compound():
     def __setitem__(self, key, value):
         self._elements[key] = value
 
-    def atoms_in(self, formula):
+    def _atoms_in(self, formula):
         dict = defaultdict(int)
         for expr in expr_form.findall(formula):
             if expr.startswith('('):
